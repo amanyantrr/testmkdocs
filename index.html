@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>VIBE Application</title>
+  
+
+  <link rel="shortcut icon" href="./img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "None";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/";
+  </script>
+  
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script>
+  <script src="./js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> VIBE Application</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href=".">Home</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#ethenet-ethenet-direct-connection">Ethenet-Ethenet Direct Connection</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#setting-ppp-connections">Setting PPP connections</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#vibe-as-an-access-point">VIBE as an Access Point</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">VIBE Application</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="ethenet-ethenet-direct-connection">Ethenet-Ethenet Direct Connection</h1>
+<ul>
+<li>
+<p>First configure your desktop client to any  IP address except 192.168.1.150 as this address is assigned to your connected VIBE by default. ( we are using 192.168.1.151 for our PC client)</p>
+</li>
+<li>
+<p>Connect VIBE to the PC client via ethernet port.</p>
+</li>
+<li>
+<p>Setup ppp0 connection. You can refer the same document under
+<code>Setting PPP connections</code></p>
+</li>
+</ul>
+<p><img alt="index" src="./img/eth.png" /></p>
+<ul>
+<li>Then you have to assign gateway IP address of your PC client as 192.168.1.150 for direct communication between client and VIBE.</li>
+<li>
+<p>For this you have to type</p>
+<pre><code> # nano /etc/network/interfaces
+</code></pre>
+</li>
+<li>
+<p>A text editor will get open and then you have to configure the settings as per your requirements.( gateway IP address must be  by default. ( we are using 192.168.1.151 for our PC client)</p>
+<pre><code> # wpa-ssid "essid"
+ # wpa-psk  "password"
+
+ case, to completely disable remove file [run_boot-scripts] from the b$
+ iface usb0 inet static# Ethernet/RNDIS gadget (g_ether)
+ # ... or on host side, usbnet and random hwaddr
+ # Note on some boards, usb0 is automatically setup with an init script
+ # in that# This file describes the network interfaces available on your system
+ # and how to activate them. For more information, see interfaces(5).
+
+ # The loopback network interface
+ auto lo
+ iface lo inet loopback
+
+ # The primary network interface
+ auto eth0
+ # iface eth0 inet dhcp
+ # Example to keep MAC address between reboots
+ # hwaddress ether DE:AD:BE:EF:CA:FE
+ iface eth0 inet static
+ address 192.168.1.151
+ netmask 255.255.255.0
+ network 192.168.1.0
+ gateway 192.168.1.150
+</code></pre>
+</li>
+<li>
+<p>Now for confirmation, ping 192.168.1.150 using your PC client as well as ping 192.168.1.151( PC client) using VIBE.</p>
+</li>
+<li>Log into VIBE via ethernet port using your PC client as root client.</li>
+</ul>
+<h1 id="setting-ppp-connections">Setting PPP connections</h1>
+<ul>
+<li>
+<p>Place a data enabled mini-SIM in the SIM card slot and connect a GSM antenna to the respective 2G/3G antenna connector.</p>
+</li>
+<li>
+<p>Ensure that the power jumpers J2 and J3(ignore if battery feature present) on VIBE are in place and eeprom address set at 0x54 using dip switch S7.</p>
+</li>
+<li>
+<p>Power up VIBE using the 5V,5A DC adapter(supplied with VIBE).</p>
+</li>
+<li>
+<p>After powering up and bootup, ssh into VIBE through Ethernet Cable (at IP 192.168.1.150 for preflashed eMMC images)</p>
+<pre><code>   # ssh -l root 192.168.1.150
+</code></pre>
+</li>
+<li>
+<p>Username for root login is root and password is root. For user login, username is debian and password is temppwd.</p>
+</li>
+<li>
+<p>Then you have to check modem using lsusb command.</p>
+</li>
+</ul>
+<p><code>Note:</code> Please ensure that the user leds on the board is glowing according to its functionality after booting/powering the board.</p>
+<pre><code>        root@Yantrr:~# lsusb
+
+        Bus 001 Device 002: ID 0424:2412 Standard Microsystems Corp.
+        Bus 002 Device 002: ID 21f5:2012
+        Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+        Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+</code></pre>
+<ul>
+<li>Now there are two ways to setup ppp0 connections.</li>
+</ul>
+<p>a) ppp daemon</p>
+<ul>
+<li>
+<p>For setting it , you have to open /etc/ppp/peers/airtel file ( we used airtel SIM).</p>
+<pre><code>     # nano /etc/ppp/peers/airtel
+</code></pre>
+</li>
+<li>
+<p>From the opened window, you can verify the username for your service provider.</p>
+<pre><code>  # This option file was generated by pppconfig 2.3.18.
+  #
+  #
+  hide-password
+  noauth
+  connect "/usr/sbin/chat -v -f /etc/chatscripts/airtel"
+  debug
+  /dev/ttyUSB3
+  460800
+  #defaultroute
+  replacedefaultroute
+  noipdefault
+  user "airtel"
+  remotename airtel
+</code></pre>
+</li>
+<li>
+<p>Now you can use pon command.</p>
+<pre><code>  #  pon airtel
+</code></pre>
+</li>
+<li>
+<p>You can check whether ppp0 connection is up or not.</p>
+</li>
+</ul>
+<p>root@Yantrr:~# ifconfig</p>
+<pre><code>      eth0      Link encap:Ethernet  HWaddr 6c:ec:eb:64:98:ce
+                inet addr:192.168.1.150  Bcast:192.168.1.255  Mask:255.255.255.0
+                inet6 addr: fe80::6eec:ebff:fe64:98ce/64 Scope:Link
+                UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+                RX packets:20930 errors:0 dropped:2409 overruns:0 frame:0
+                TX packets:4791 errors:0 dropped:0 overruns:0 carrier:0
+                collisions:0 txqueuelen:1000
+                RX bytes:4089157 (3.8 MiB)  TX bytes:533725 (521.2 KiB)
+                Interrupt:40
+
+      lo        Link encap:Local Loopback
+                inet addr:127.0.0.1  Mask:255.0.0.0
+                inet6 addr: ::1/128 Scope:Host
+                UP LOOPBACK RUNNING  MTU:65536  Metric:1
+                RX packets:160 errors:0 dropped:0 overruns:0 frame:0
+                TX packets:160 errors:0 dropped:0 overruns:0 carrier:0
+                collisions:0 txqueuelen:0
+                RX bytes:14652 (14.3 KiB)  TX bytes:14652 (14.3 KiB)
+
+      ppp0      Link encap:Point-to-Point Protocol
+                inet addr:100.105.62.223  P-t-P:10.64.64.64  Mask:255.255.255.255
+                UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1500  Metric:1
+                RX packets:7 errors:0 dropped:0 overruns:0 frame:0
+                TX packets:17 errors:0 dropped:0 overruns:0 carrier:0
+                collisions:0 txqueuelen:3
+                RX bytes:130 (130.0 B)  TX bytes:937 (937.0 B)
+</code></pre>
+<p>b) Wvdial</p>
+<ul>
+<li>First we will setup ppp0 connections using wvdial.</li>
+<li>
+<p>For this you have to install wvdial tool using command</p>
+<pre><code>  # sudo apt -get install wvdial
+</code></pre>
+</li>
+<li>
+<p>Now we have to set the configuration of wvdial using wvdial.conf file. For this type</p>
+<pre><code>  # nano /etc/wvdial.conf
+</code></pre>
+</li>
+<li>
+<p>Assuming that you have the USERNAME, PASSWORD and APN available for the service provider of the SIM card being used, edit and make wvdial.conf file like this. Sample Wvdial files for some service providers are given <a href="http://www.yantrr.com/wiki/Sample_wvdial.conf_file">HERE</a></p>
+</li>
+</ul>
+<p><code>NOTE:</code> Also verify the modem port mentioned in the wvdial.conf file with actual modem port.</p>
+<p>For ZTE model- /dev/ttyUSB3</p>
+<p>For SEW Strong Rising model- /dev/ttyUSB0</p>
+<pre><code>     [Dialer Defaults]
+     Modem Type = Analog
+     ModemPhone = *99#
+     ISDN = 0
+     Baud = 115200
+     Username = USERNAME
+     Password = PASSWORD
+     Modem = /dev/ttyUSB0
+     Init1 = ATZ
+     Init2 = ATQ0 V1 E1 S0=0 &amp;C1 &amp;D2 +FCLASS=0
+     Init3 = at+cgdcont=1,"ip","APN"
+     Stupid Mode = 1
+</code></pre>
+<p><code>Note:</code> Consult your network provider for exact details in case you are facing any difficulties.</p>
+<p>Now save and exit the wvdial.conf file.</p>
+<p>Next we have to establish wvdial connection. (In this example we have taken airtel-3G micro-SIM card)</p>
+<pre><code>      wvdial Airtel_3G
+</code></pre>
+<p><code>NOTE:</code> Here you may get some errors like</p>
+<pre><code>    warning, can't find address for `www.suse.de`
+
+   --&gt; warning, address lookup does not work
+   --&gt; Nameserver (DNS) failure, the connection may not work.
+</code></pre>
+<ul>
+<li>
+<p>For this you have to edit your wvdial.conf file correctly by verifying the details with the service provider of your SIM card. You $</p>
+</li>
+<li>
+<p>In the following file /etc/ppp/peers/wvdial, comment or remove usepeerdns</p>
+<pre><code>   # nano /etc/ppp/peers/wvdial
+
+   noauth
+   name wvdial
+   #usepeerdns
+</code></pre>
+</li>
+</ul>
+<p>And in /etc/wvdial.conf ,  add following two lines in the column of your internet service provider:</p>
+<pre><code>      # nano /etc/wvdial.conf
+
+      check DNS = no
+      auto DNS = no
+</code></pre>
+<ul>
+<li>Now we will check whether connection is established or not.</li>
+</ul>
+<p>root@Yantrr:~# ifconfig</p>
+<pre><code>      eth0      Link encap:Ethernet  HWaddr 6c:ec:eb:64:98:ce
+                inet addr:192.168.1.150  Bcast:192.168.1.255  Mask:255.255.255.0
+                inet6 addr: fe80::6eec:ebff:fe64:98ce/64 Scope:Link
+                UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+                RX packets:20930 errors:0 dropped:2409 overruns:0 frame:0
+                TX packets:4791 errors:0 dropped:0 overruns:0 carrier:0
+                collisions:0 txqueuelen:1000
+                RX bytes:4089157 (3.8 MiB)  TX bytes:533725 (521.2 KiB)
+                Interrupt:40
+
+      lo        Link encap:Local Loopback
+                inet addr:127.0.0.1  Mask:255.0.0.0
+                inet6 addr: ::1/128 Scope:Host
+                UP LOOPBACK RUNNING  MTU:65536  Metric:1
+                RX packets:160 errors:0 dropped:0 overruns:0 frame:0
+                TX packets:160 errors:0 dropped:0 overruns:0 carrier:0
+                collisions:0 txqueuelen:0
+                RX bytes:14652 (14.3 KiB)  TX bytes:14652 (14.3 KiB)
+
+      ppp0      Link encap:Point-to-Point Protocol
+                inet addr:100.105.62.223  P-t-P:10.64.64.64  Mask:255.255.255.255
+                UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1500  Metric:1
+                RX packets:7 errors:0 dropped:0 overruns:0 frame:0
+                TX packets:17 errors:0 dropped:0 overruns:0 carrier:0
+                collisions:0 txqueuelen:3
+                RX bytes:130 (130.0 B)  TX bytes:937 (937.0 B)
+</code></pre>
+<ul>
+<li>Here we can see three protocols</li>
+</ul>
+<p>1) Ethernet (eth0)
+2) Loopback (lo)
+3) Point-to-Point protocol (ppp0)</p>
+<ul>
+<li>
+<p>You can also check ip route :</p>
+<pre><code> root@Yantrr:~# ip route
+ default via 192.168.1.1 dev eth0
+ 10.64.64.64 dev ppp0  proto kernel  scope link  src 100.106.85.110
+ 192.168.1.0/24 dev eth0  proto kernel  scope link  src 192.168.1.150
+</code></pre>
+</li>
+<li>
+<p>Next is to get the information about the hosts, gateways etc. For this you should view the routing table</p>
+<pre><code> root@Yantrr:~# route -n
+ Kernel IP routing table
+ Destination     Gateway        Genmask          Flags     Metric     Ref      Use        iface
+ 0.0.0.0        192.168.1.1     0.0.0.0           UG        0          0       0         eth0      
+ 10.64.64.64    0.0.0.0         255.255.255.255   UH        0          0       0         ppp0
+ 192.168.1.0    0.0.0.0         255.255.255.0      U        0          0       0         eth0                                $
+</code></pre>
+</li>
+<li>
+<p>Here you can see gateway is not initialised to ppp0 protocol which has an IP 10.64.64.64 and also in ip route ,it shows “default via 192.168.1.1 dev eth0” which should be changed to “default via 10.64.64.64 dev ppp0”</p>
+</li>
+<li>
+<p>For that you have to type following commands:
+         # GW=$(ip address show ppp0 | awk '/peer/ {print $4}' | cut -d"/" -f1)</p>
+<pre><code> # echo $GW
+
+ # /sbin/ip route replace default via $GW dev ppp0
+</code></pre>
+</li>
+</ul>
+<p>Now if you check routing table</p>
+<pre><code>      Destination     Gateway         Genmask         Flags    Metric  Ref    Use    Iface
+
+      0.0.0.0         10.64.64.64     0.0.0.0          UG       0       0        0    ppp0
+
+      10.64.64.64     0.0.0.0         255.255.255.255  UH       0       0        0     ppp0
+
+      192.168.1.0     0.0.0.0         255.255.255.0    U        0       0        0     eth0
+</code></pre>
+<ul>
+<li>
+<p>Also the ip route command changes to</p>
+<pre><code>  root@Yantrr:~# ip route
+  default via 10.64.64.64 dev ppp0
+  10.64.64.64 dev ppp0  proto kernel  scope link  src 100.106.85.110
+  192.168.1.0/24 dev eth0  proto kernel  scope link  src 192.168.1.150
+</code></pre>
+</li>
+<li>
+<p>Now you are ready to use the internet connection via ppp0.</p>
+</li>
+<li>
+<p>You can check the connections by using ping command.</p>
+</li>
+<li>Also check the file /etc/resolv.conf<pre><code># nano /etc/resolv.conf
+</code></pre>
+</li>
+</ul>
+<p>The content of file should be</p>
+<pre><code>    nameserver 192.168.1.150
+    nameserver 8.8.8.8
+</code></pre>
+<p><code>Note:</code> Another error that can arise while you ping any IP is that it may reach the DNS but could not transmit packets. For eg:</p>
+<pre><code>    root@Yantrr:~# ping 8.8.8.8
+    PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+
+    --- 8.8.8.8 ping statistics ---
+    6 packets transmitted, 0 received, 100% packet loss, time 5000ms
+</code></pre>
+<ul>
+<li>For this also you have to check your wvdial configurations and also the routing table.</li>
+</ul>
+<h1 id="vibe-as-an-access-point">VIBE as an Access Point</h1>
+<ul>
+<li>Connect VIBE2 to your PC client via ethernet interface.</li>
+<li>
+<p>Check whether eth0 (ethernet connection) is up or not using the command:</p>
+<pre><code>  ifconfig
+
+  eth0      Link encap:Ethernet  HWaddr 1c:ba:8c:f1:a2:40                         
+            inet addr:192.168.1.151  Bcast:192.168.1.255  Mask:255.255.255.0      
+            inet6 addr: fe80::1eba:8cff:fef1:a240/64 Scope:Link                   
+            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1                    
+            RX packets:2500 errors:0 dropped:180 overruns:0 frame:0               
+            TX packets:1049 errors:0 dropped:0 overruns:0 carrier:0               
+            collisions:0 txqueuelen:1000                                          
+            RX bytes:1494880 (1.4 MiB)  TX bytes:154334 (150.7 KiB)               
+            Interrupt:40
+</code></pre>
+</li>
+<li>
+<p>Now we will set our VIBE as an access point (AP).</p>
+</li>
+<li>
+<p>Before that let us understand what AP needs to be capable of to be AP:</p>
+<ol>
+<li>Inform devices about AP existence (Broadcast SSID) or at least allow         clients to connect.</li>
+<li>Authenticate client.</li>
+<li>Assign IP to the client devices.</li>
+<li>Route packages to the “output” network and the other way around.</li>
+</ol>
+</li>
+<li>
+<p>In order to handle all these,VIBE needs the following tools</p>
+<ol>
+<li>hostapd – Host AccessPoint Daemon </li>
+<li>wpa-supplicant – tool responsible for WPA authorization</li>
+<li>isc-dhcp-server </li>
+<li>ip-tables </li>
+</ol>
+</li>
+</ul>
+<p>Let us now install these tools</p>
+<pre><code>      sudo apt-get update
+
+      sudo apt-get -y install hostapd isc-dhcp-server iptables wpasupplicant
+</code></pre>
+<ul>
+<li>Now let us set the AP configuration by creating the file /etc/hostapd/hostapd.conf and adding the following content<pre><code> interface=wlan0    #wlan0 will be working in AP mode
+ ssid=Your_AP_SSID  #your AP SSID
+ channel=1          #WiFi channel used by AP
+ # WPA and WPA2 configuration
+ macaddr_acl=0      #indicates that you do not use MAC address allow/deny list
+ auth_algs=1        #indicates algorithm specified by IEEE 802.11
+ ignore_broadcast_ssid=0 #AP will broadcast SSID
+
+ #WPA settings
+ wpa=2              #WPA algorithm used (WPA2 in this case)
+ wpa_passphrase=my_secret_pass #AP password
+ wpa_key_mgmt=WPA-PSK #WPA key mangement type
+ wpa_pairwise=TKIP #encription algorithm
+ rsn_pairwise=CCMP #encription algorithm
+
+ #Hardware configuration
+ driver=rtl871xdrv     #type of driver to be used (in may be different depending on your WiFi dongle chipset)
+                       #in majority of cases it will be driver=nl80211
+ ieee80211n=1          #Whether IEEE 802.11n (HT) is enabled 
+ device_name=RTL8192CU #User-friendly description of device (optional)
+ manufacturer=Realtek  #Manufacturer name (optional)
+ hw_mode=g             #WPS RF Bands (a = 5G, b = 2.4G, g = 2.4G, ag = dual band)
+</code></pre>
+</li>
+</ul>
+<p><code>Note:</code> If you are copying the above content ,don't forget to remove the comments from the file.</p>
+<ul>
+<li>
+<p>Now we need to set up /etc/hostapd/hostapd.conf as the configuration file. We do it in /etc/default/hostapd. Put the following line there:</p>
+<pre><code> DAEMON_CONF="/etc/hostapd/hostapd.conf"
+</code></pre>
+</li>
+<li>
+<p>Now let’s configure the network settings for clients connecting to AP. We do it in /etc/dhcp/dhcpd.conf</p>
+<pre><code>  ddns-update-style none;   #DDNS disabled
+  default-lease-time 84600; #IP lease time valid for a day
+  max-lease-time 84600;     #IP lease time valid for a day
+  subnet 192.134.3.0 netmask 255.255.255.0 { #AP Subnet defintion
+  range 192.134.3.2 192.134.3.9  ;         #Range of IP addresses available for clients
+  option domain-name-servers 192.168.1.1 ; #your DNS IP (in my case, my router is workign as DNS)
+  option domain-name "home";     #optional domain name
+  option routers  192.134.3.1  ; #your client's gateway / router IP
+  }
+</code></pre>
+</li>
+<li>
+<p>Again we need to make sure that DHCP server uses this configuration. In /etc/default/isc-dhcp-server put the following lines:</p>
+<pre><code> DHCPD_CONF="/etc/dhcp/dhcpd.conf"
+ INTERFACES="wlan0"
+</code></pre>
+</li>
+<li>
+<p>Now configure wlan0 for static IP adress (the same as router IP in dhcpd.conf file)</p>
+</li>
+<li>
+<p>We do it in /etc/network/interfaces:</p>
+<pre><code> auto wlan0
+ allow-hotplug wlan0
+ iface wlan0 inet static
+      address 192.134.3.1
+      netmask 255.255.255.0
+ up iptables-restore &lt; /etc/iptables.ipv4.nat
+</code></pre>
+</li>
+<li>
+<p>The last line will set routing rules after restart.</p>
+</li>
+<li>Let’s turn on packet forwarding in /etc/sysctl.conf by making sure that line <pre><code> net.ipv4.ip_forward=1
+</code></pre>
+</li>
+</ul>
+<p>is uncommented or added.</p>
+<ul>
+<li>We will configure routing now by executing (assuming eth0 is your WAN interface):<pre><code>sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
+</code></pre>
+</li>
+</ul>
+<p>and lets save these setting in a file:</p>
+<pre><code>    sh -c "iptables-save &gt; /etc/iptables.ipv4.nat"
+</code></pre>
+<ul>
+<li>If you are using RTL8188CUS chipset you had to replace original hostapd with the one prepared for this chipset. <pre><code>wget "http://raspberry-at-home.com/files/hostapd.gz"
+sudo gzip -d hostapd.gz
+sudo chmod 755 hostapd
+sudo cp hostapd /usr/sbin/
+</code></pre>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.15.3
+Build Date UTC : 2016-07-18 14:22:04.298852
+-->
