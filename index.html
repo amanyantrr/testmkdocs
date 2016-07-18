@@ -107,9 +107,10 @@
             <div class="section">
               
                 <h1 id="ethenet-ethenet-direct-connection">Ethenet-Ethenet Direct Connection</h1>
-<p>sdskdkjs
-- First configure your desktop client to any  IP address except 192.168.1.150 as this address is assigned to your connected VIBE by default. ( we are using 192.168.1.151 for our PC client)</p>
 <ul>
+<li>
+<p>First configure your desktop client to any  IP address except 192.168.1.150 as this address is assigned to your connected VIBE by default. ( we are using 192.168.1.151 for our PC client)</p>
+</li>
 <li>
 <p>Connect VIBE to the PC client via ethernet port.</p>
 </li>
@@ -567,6 +568,35 @@ sudo cp hostapd /usr/sbin/
 </code></pre>
 </li>
 </ul>
+<p><img alt="first" src="./img/first.png" /></p>
+<ul>
+<li>
+<p>To check the mode, you can use the command iwconfig</p>
+<pre><code>root@Yantrr:~# iwconfig                                                         
+wlan0     IEEE 802.11bgn  ESSID:"VIBE2_AP"  Nickname:"&lt;WIFI@REALTEK&gt;"           
+          Mode:Master  Frequency:2.412 GHz  Access Point: 00:1D:43:C0:0C:F0     
+          Sensitivity:0/0                                                       
+          Retry:off   RTS thr:off   Fragment thr:off                            
+          Encryption key:off                                                    
+          Power Management:off                                                  
+          Link Quality=71/100  Signal level=-59 dBm  Noise level=0 dBm          
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0              
+          Tx excessive retries:0  Invalid misc:0   Missed beacon:0
+
+lo        no wireless extensions.
+
+eth0      no wireless extensions.
+</code></pre>
+</li>
+<li>
+<p>You can also verify using ipv4 tables file which can be accessed using</p>
+<pre><code>nano  /etc/iptables.ipv4.nat
+</code></pre>
+</li>
+<li>
+<p>Now you have setup your AP and can connect devices to it.</p>
+</li>
+</ul>
               
             </div>
           </div>
@@ -603,5 +633,5 @@ sudo cp hostapd /usr/sbin/
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-07-18 14:31:12.146913
+Build Date UTC : 2016-07-18 14:47:41.356437
 -->
