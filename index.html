@@ -373,16 +373,17 @@
  Destination     Gateway        Genmask          Flags     Metric     Ref      Use        iface
  0.0.0.0        192.168.1.1     0.0.0.0           UG        0          0       0         eth0      
  10.64.64.64    0.0.0.0         255.255.255.255   UH        0          0       0         ppp0
- 192.168.1.0    0.0.0.0         255.255.255.0      U        0          0       0         eth0                                $
+ 192.168.1.0    0.0.0.0         255.255.255.0      U        0          0       0         eth0
 </code></pre>
 </li>
 <li>
 <p>Here you can see gateway is not initialised to ppp0 protocol which has an IP 10.64.64.64 and also in ip route ,it shows “default via 192.168.1.1 dev eth0” which should be changed to “default via 10.64.64.64 dev ppp0”</p>
 </li>
 <li>
-<p>For that you have to type following commands:
-         # GW=$(ip address show ppp0 | awk '/peer/ {print $4}' | cut -d"/" -f1)</p>
-<pre><code> # echo $GW
+<p>For that you have to type following commands:</p>
+<pre><code> # GW=$(ip address show ppp0 | awk '/peer/ {print $4}' | cut -d"/" -f1)
+
+ # echo $GW
 
  # /sbin/ip route replace default via $GW dev ppp0
 </code></pre>
@@ -633,5 +634,5 @@ eth0      no wireless extensions.
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-07-18 14:47:41.356437
+Build Date UTC : 2016-07-18 14:57:42.968617
 -->
